@@ -138,7 +138,7 @@ function bookmarks() {
         <div>
           <div>
             {bookmarks.length > 0 && (
-              <h3 className="text-[16px] sm:text-[20px] md:text-[35px] lg:text-[30px] mb-4">
+              <h3 className="text-[16px] sm:text-[20px] md:text-[35px] lg:text-[30px] mb-5">
                 Bookmarked Movies
               </h3>
             )}

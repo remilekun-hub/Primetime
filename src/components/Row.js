@@ -7,9 +7,10 @@ import { addBookmark, removeBookMark } from "../redux/slices/bookMarkSlice";
 import BookmarkedIcon from "./icons/bookmarkedIcon";
 import NotBookmarkedIcon from "./icons/notBookmarkedIcon";
 
-function Row({ title, route }) {
+function Row({ title, route, grid, tv, movie }) {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSwr(route, fetcher);
+  console.log({ data });
   const router = useRouter();
   const dispatch = useDispatch();
   const bookmarks = useSelector((state) => state.bookmarks);
@@ -50,6 +51,13 @@ function Row({ title, route }) {
     );
   }
 
+  if (error)
+    return (
+      <div className="flex items-center justify-center text-white text-[28px] pb-5">
+        Error Fetching data.
+      </div>
+    );
+
   if (isLoading)
     return (
       <div className="flex items-center justify-center text-white text-[28px] pb-5">
@@ -58,80 +66,145 @@ function Row({ title, route }) {
     );
 
   return (
-    <section className="pb-5">
-      <p className="text-white text-[16px] sm:text-[20px] md:text-[26px] lg:text-[35px] mb-4 tracking-[.5px]">
+    <section className="pb-6 text-white">
+      <p className="text-white text-[17px] font-bold sm:text-[20px] md:text-[26px] lg:text-[31px] mb-5 tracking-[.5px]">
         {title}
       </p>
-      <div className="overflow-auto space-x-4 sm:space-x-5 lg:space-x-9 whitespace-nowrap scrollbar-thin scrollbar-thumb-[#5A6A90] scrollbar-track-gray-[#10141E] scrollbar-thumb-rounded">
-        {data?.results?.map((movie) => (
-          <div
-            key={movie.id}
-            className="cursor-pointer z-10 w-[200px] h-[150px] sm:w-[250px] sm:h-[175px] md:w-[300px] md:h-[210px] lg:w-[450px] lg:h-[220px] relative inline-block rounded-md md:rounded-lg "
-            onClick={() => {
-              router.push(
-                `${
-                  movie.media_type == `movie`
-                    ? `/movie/${movie.id}`
-                    : `/tv/${movie.id}`
-                }`
-              );
-            }}
-          >
-            <Image
-              src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-              layout="fill"
-              blurDataURL={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-              className="object-cover object-center rounded-lg"
-              placeholder="blur"
-            />
-
-            {checkid(movie.id, bookmarks) ? (
-              <div
-                className="absolute top-[10px] right-[12px] bg-black/50 p-[5px] w-9 h-9 flex items-center justify-center z-50 rounded-full"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(removeBookMark(movie.id));
-                }}
-              >
-                <BookmarkedIcon />
+      {grid ? (
+        <div className="cursor-pointer text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {data?.results?.slice(0, 10).map((d) => (
+            <div
+              key={d.id}
+              onClick={() => {
+                router.push(`${tv ? `/tv/${d.id}` : `/movie/${d.id}`}`);
+              }}
+              className="relative"
+            >
+              {checkid(d.id, bookmarks) ? (
+                <div
+                  className="absolute top-[10px] right-[12px] bg-black/50 p-[5px] w-9 h-9 flex items-center justify-center z-50 rounded-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(removeBookMark(d.id));
+                  }}
+                >
+                  <BookmarkedIcon />
+                </div>
+              ) : (
+                <div
+                  className="absolute top-[10px] right-[12px] bg-black/50 p-[5px] w-9 h-9 flex items-center justify-center z-50 rounded-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(addBookmark(d));
+                  }}
+                >
+                  <NotBookmarkedIcon className="text-[50px] w-6 h-5 stroke-2" />
+                </div>
+              )}
+              <div className="w-full h-[110px] sm:h-[130px] md:h-[160px] lg:h-[170px]  relative">
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500/${d.backdrop_path}`}
+                  blurDataURL={`https://image.tmdb.org/t/p/w300/${d.backdrop_path}`}
+                  className="object-cover object-center rounded-[6px] md:rounded-md"
+                  placeholder="blur"
+                  layout="fill"
+                  alt={`${d.title}_backdrop`}
+                  quality={80}
+                />
               </div>
-            ) : (
-              <div
-                className="absolute top-[10px] right-[12px] bg-black/50 p-[5px] w-9 h-9 flex items-center justify-center z-50 rounded-full"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(addBookmark(movie));
-                }}
-              >
-                <NotBookmarkedIcon className="text-[50px] w-6 h-5 stroke-2" />
+              <div className="mt-2">
+                <div className="flex items-center text-[11px] sm:text-[12px] md:text-[13px]">
+                  <span className="text-white/80">
+                    {d.release_date?.slice(0, 4) ||
+                      d.first_air_date?.slice(0, 4)}
+                  </span>
+                  <span className="w-[3px] h-[3px] rounded-full bg-white/80 ml-[7px]" />
+                  <span className="ml-[9px]">
+                    <TvIcon />
+                  </span>{" "}
+                  <span className="ml-[7px] text-white/80">Tv</span>
+                </div>
+                <h4 className="max-w-[95%] font-semibold truncate text-[12px] sm:text-[15px] md:text-[16px] lg:text-[18px]">
+                  {d.title || d.name}
+                </h4>
               </div>
-            )}
-
-            <div className="absolute bottom-[13px] sm:bottom-[15px] left-[15px] lg:bottom-[10px] sm:left-[20px] w-full">
-              <div className="text-[15px] flex items-center">
-                <span className="text-white">
-                  {movie?.release_date?.slice(0, 4) ||
-                    movie?.first_air_date?.slice(0, 4)}
-                </span>{" "}
-                <span className="capitalize text-white font-medium ml-[9px]">
-                  {movie.media_type == "movie" ? (
-                    <span className="flex space-x-[7px] items-center">
-                      <MovieIcon /> <span>Movie</span>
-                    </span>
-                  ) : (
-                    <span className="flex space-x-[7px] items-center">
-                      <TvIcon /> <span>Tv</span>
-                    </span>
-                  )}
-                </span>
-              </div>
-              <h4 className="text-white md:text-[19px] lg:text-[21px] font-semibold  max-w-[88%] truncate tracking-[.6px]">
-                {movie.title || movie.original_name}
-              </h4>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="overflow-auto space-x-4 sm:space-x-5 lg:space-x-9 whitespace-nowrap scrollbar-thin scrollbar-thumb-[#5A6A90] scrollbar-track-gray-[#10141E] scrollbar-thumb-rounded">
+          {data?.results?.map((movie) => (
+            <div
+              key={movie.id}
+              className="cursor-pointer z-10 w-[200px] h-[150px] sm:w-[250px] sm:h-[175px] md:w-[300px] md:h-[210px] lg:w-[450px] lg:h-[240px] relative inline-block rounded-md md:rounded-lg "
+              onClick={() => {
+                router.push(
+                  `${
+                    movie.media_type == `movie`
+                      ? `/movie/${movie.id}`
+                      : `/tv/${movie.id}`
+                  }`
+                );
+              }}
+            >
+              <Image
+                src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+                layout="fill"
+                blurDataURL={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+                className="object-cover object-center rounded-lg filter brightness-55"
+                placeholder="blur"
+                quality={80}
+              />
+
+              {checkid(movie.id, bookmarks) ? (
+                <div
+                  className="absolute top-[10px] right-[12px] bg-black/50 p-[5px] w-9 h-9 flex items-center justify-center z-50 rounded-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(removeBookMark(movie.id));
+                  }}
+                >
+                  <BookmarkedIcon />
+                </div>
+              ) : (
+                <div
+                  className="absolute top-[10px] right-[12px] bg-black/50 p-[5px] w-9 h-9 flex items-center justify-center z-50 rounded-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(addBookmark(movie));
+                  }}
+                >
+                  <NotBookmarkedIcon className="text-[50px] w-6 h-5 stroke-2" />
+                </div>
+              )}
+
+              <div className="absolute bottom-[13px] sm:bottom-[15px] left-[15px] lg:bottom-[10px] sm:left-[20px] w-full">
+                <div className="text-[15px] flex items-center">
+                  <span className="text-white">
+                    {movie?.release_date?.slice(0, 4) ||
+                      movie?.first_air_date?.slice(0, 4)}
+                  </span>{" "}
+                  <span className="w-[3px] h-[3px] rounded-full bg-white/80 ml-[7px]" />
+                  <span className="capitalize text-white font-medium ml-[6px]">
+                    {movie.media_type == "movie" ? (
+                      <span className="flex space-x-[5px] items-center">
+                        <MovieIcon /> <span>Movie</span>
+                      </span>
+                    ) : (
+                      <span className="flex space-x-[5px] items-center">
+                        <TvIcon /> <span>Tv</span>
+                      </span>
+                    )}
+                  </span>
+                </div>
+                <h4 className="text-white md:text-[19px] lg:text-[21px] font-semibold  max-w-[88%] truncate tracking-[.6px]">
+                  {movie.title || movie.name}
+                </h4>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

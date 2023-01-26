@@ -44,8 +44,8 @@ function Page({ index, id }) {
     );
   return (
     <div>
-      <div className="relative cursor-pointer text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {data.results.map((d) => (
+      <div className="relative text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {data?.results.map((d) => (
           <div
             key={d.id}
             onClick={() => {
