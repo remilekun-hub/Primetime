@@ -10,7 +10,6 @@ import NotBookmarkedIcon from "./icons/notBookmarkedIcon";
 function Row({ title, route, grid, tv, movie }) {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSwr(route, fetcher);
-  console.log({ data });
   const router = useRouter();
   const dispatch = useDispatch();
   const bookmarks = useSelector((state) => state.bookmarks);
@@ -124,7 +123,7 @@ function Row({ title, route, grid, tv, movie }) {
                   </span>{" "}
                   <span className="ml-[7px] text-white/80">Tv</span>
                 </div>
-                <h4 className="max-w-[95%] font-semibold truncate text-[12px] sm:text-[15px] md:text-[16px] lg:text-[18px]">
+                <h4 className="max-w-full font-semibold truncate text-[12px] sm:text-[15px] md:text-[16px] lg:text-[18px]">
                   {d.title || d.name}
                 </h4>
               </div>

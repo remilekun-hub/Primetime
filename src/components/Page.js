@@ -77,7 +77,7 @@ function Page({ index, id }) {
             <div className="w-full h-[110px] sm:h-[130px] md:h-[160px] lg:h-[170px]  relative">
               <Image
                 src={`https://image.tmdb.org/t/p/w500/${d.backdrop_path}`}
-                blurDataURL={`https://image.tmdb.org/t/p/w300/${d.backdrop_path}`}
+                blurDataURL={`https://image.tmdb.org/t/p/w500/${d.backdrop_path}`}
                 className="object-cover object-center rounded-[6px] md:rounded-md"
                 placeholder="blur"
                 layout="fill"
@@ -95,7 +95,7 @@ function Page({ index, id }) {
                 </span>{" "}
                 <span className="ml-[7px] text-white/80">Movie</span>
               </div>
-              <h4 className="max-w-[95%] font-semibold truncate text-[12px] sm:text-[15px] md:text-[16px] lg:text-[18px]">
+              <h4 className="max-w-full font-semibold truncate text-[12px] sm:text-[15px] md:text-[16px] lg:text-[18px]">
                 {d.title}
               </h4>
             </div>

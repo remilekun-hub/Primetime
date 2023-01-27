@@ -23,7 +23,7 @@ function Search() {
           onClick={(e) => {
             e.preventDefault();
             if (!query) return;
-            router.push(`/search?q=${query}`);
+            router.push(`/search?q=${query}&page=${1}`);
             setquery("");
           }}
         >

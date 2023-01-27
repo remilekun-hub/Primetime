@@ -97,7 +97,7 @@ function PageTv({ index, id }) {
                 </span>{" "}
                 <span className="ml-[7px] text-white/80">Tv</span>
               </div>
-              <h4 className="max-w-[95%] font-semibold truncate text-[12px] sm:text-[15px] md:text-[16px] lg:text-[18px]">
+              <h4 className="max-w-full font-semibold truncate text-[12px] sm:text-[15px] md:text-[16px] lg:text-[18px]">
                 {d.name}
               </h4>
             </div>

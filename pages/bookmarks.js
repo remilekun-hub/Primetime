@@ -17,7 +17,7 @@ function bookmarks() {
   const movieSearch = () => {
     if (input) {
       return bookmarks.filter((x) =>
-        (x.title || x.original_name).includes(input)
+        (x.title || x.original_name).startsWith(input)
       );
     } else return bookmarks;
   };
