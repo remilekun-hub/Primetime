@@ -1,11 +1,20 @@
-import React, { useState } from "react";
-import { getProviders, getSession, useSession } from "next-auth/react";
+import React from "react";
+import { getSession } from "next-auth/react";
 import { baseURl, TMDBKEY } from "../src/components/tmdb";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/legacy/image";
+import BookmarkedIcon from "../src/components/icons/bookmarkedIcon";
+import NotBookmarkedIcon from "../src/components/icons/notBookmarkedIcon";
+import { useSelector, useDispatch } from "react-redux";
+import { addBookmark } from "../src/redux/slices/bookMarkSlice";
+import { useRouter } from "next/router";
 
 function search({ movies, q }) {
+  console.log({ movies });
+  const router = useRouter();
+  const bookmarks = useSelector((state) => state.bookmarks);
+  const dispatch = useDispatch();
   function MovieIcon() {
     return (
       <svg
@@ -35,6 +44,11 @@ function search({ movies, q }) {
       </svg>
     );
   }
+  const checkid = (movieid, bookmarks) => {
+    const bookmark = bookmarks.find((m) => m.id === movieid);
+
+    return movieid === bookmark?.id;
+  };
   return (
     <div className="text-white">
       <Head>
@@ -48,7 +62,36 @@ function search({ movies, q }) {
       )}
       <div className="mt-3 text-white relative  text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {movies?.results.map((d) => (
-          <div key={d.id}>
+          <div
+            key={d.id}
+            className="relative"
+            onClick={() => {
+              d.media_type === "movie"
+                ? router.push(`/movie/${d.id}`)
+                : router.push(`/tv/${d.id}`);
+            }}
+          >
+            {checkid(d.id, bookmarks) ? (
+              <div
+                className="absolute top-[10px] right-[12px] bg-black/50 p-[5px] w-9 h-9 flex items-center justify-center z-50 rounded-full"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(removeBookMark(d.id));
+                }}
+              >
+                <BookmarkedIcon />
+              </div>
+            ) : (
+              <div
+                className="absolute top-[10px] right-[12px] bg-black/50 p-[5px] w-9 h-9 flex items-center justify-center z-50 rounded-full"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(addBookmark(d));
+                }}
+              >
+                <NotBookmarkedIcon className="text-[50px] w-6 h-5 stroke-2" />
+              </div>
+            )}
             <div className="w-full h-[110px] sm:h-[130px] md:h-[160px] lg:h-[170px]  relative cursor-pointer">
               <Image
                 src={`https://image.tmdb.org/t/p/w500/${d.backdrop_path}`}
@@ -85,37 +128,80 @@ function search({ movies, q }) {
           </div>
         ))}
       </div>
-      {/* <div className="text-white text-[16px] mt-4 flex items-center justify-center">
-        <span
-          onClick={() => {
-            if (pageIndex == 1) return;
-            setPageIndex((pageIndex) => pageIndex - 1);
-          }}
-        >
-          Previous
-        </span>
-        <span onClick={() => setPageIndex((pageIndex) => pageIndex + 1)}>
-          Next
-        </span>
-        
-      </div> */}
-      <div>
-        {movies && (
-          <p className="text-[15px] sm:text-[17px] md:text-[20px] text-center">
-            {`Page ${movies?.page} of ${movies?.total_pages}`}
-          </p>
-        )}
-      </div>
+
       {movies && (
-        <div className="text-center">
+        <div className="text-center flex justify-center items-center mt-[20px] pb-[20px] ">
           {movies?.page > 1 ? (
-            <Link href={`/search?q=${q}&page=${movies?.page + 1}`}>
-              Previous
+            <Link
+              href={`/search?q=${q}&page=${movies?.page - 1}`}
+              className="flex items-center font-semibold text-[16px] border boder-white px-[5px] py-[3px] rounded-[5px]"
+            >
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-4 h-4 mt-[4px]"
+                >
+                  <path
+                    strokelinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 19.5L8.25 12l7.5-7.5"
+                  />
+                </svg>
+              </span>
+              <span>Previous</span>
             </Link>
           ) : (
-            ""
+            <div className="flex items-center font-semibold text-[16px] cursor-pointer border boder-white px-[5px] py-[3px] rounded-[5px]">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-4 h-4 mt-[4px]"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 19.5L8.25 12l7.5-7.5"
+                  />
+                </svg>
+              </span>
+              <span>Previous</span>
+            </div>
           )}
-          <Link href={`/search?q=${q}&page=${movies?.page + 1}`}>next</Link>
+          <div className="px-[10px]">
+            <p className="text-[15px] sm:text-[17px] md:text-[20px] text-center">
+              {`${movies?.page} of ${movies?.total_pages}`}
+            </p>
+          </div>
+          <Link
+            href={`/search?q=${q}&page=${movies?.page + 1}`}
+            className="flex items-center font-semibold text-[16px] border boder-white px-[5px] py-[3px] rounded-[5px]"
+          >
+            <span>Next</span>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-4 h-4 mt-1"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </span>
+          </Link>
         </div>
       )}
     </div>

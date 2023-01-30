@@ -14,7 +14,7 @@ function Navbar() {
       <Link href="/">
         <Logo />
       </Link>
-      <div className="space-x-7 items-center lg:space-x-0 flex lg:flex-col lg:space-y-8 lg:mt-[56px]">
+      <div className="space-x-4 sm:space-x-6 items-center lg:space-x-0 flex lg:flex-col lg:space-y-8 lg:mt-[56px]">
         <Link href="/">
           <HomeIcon />
         </Link>
@@ -47,7 +47,7 @@ function Navbar() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke=""
-              class="w-8 h-8"
+              className="w-8 h-8"
             >
               <path
                 strokeLinecap="round"
