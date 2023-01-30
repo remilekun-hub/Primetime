@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React, { useState } from "react";
 import PageTv from "../../../src/components/PageTv";
+import { getSession } from "next-auth/react";
 
 function Genre({ id, name }) {
   const [pageIndex, setPageIndex] = useState(1);
@@ -41,6 +42,16 @@ export const getServerSideProps = async ({
   params: { id },
   query: { name },
 }) => {
+  const session = await getSession(ctx);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       id,

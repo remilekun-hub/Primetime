@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
 
@@ -16,6 +17,16 @@ function Tv({ data }) {
 export default Tv;
 
 export const getServerSideProps = async ({ params: { id } }) => {
+  const session = await getSession(ctx);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+
   const movie = await fetch(
     `https://api.themoviedb.org/3/tv/${id}?api_key=a74c9d362a96073b0bc4b10675a3ab80`
   );

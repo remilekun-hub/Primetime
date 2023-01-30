@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Genre from "../src/components/Genre";
+import { getSession } from "next-auth/react";
 
 function tv() {
   return (
@@ -36,3 +37,18 @@ function tv() {
 }
 
 export default tv;
+
+export const getServerSideProps = async (ctx) => {
+  const session = await getSession(ctx);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
