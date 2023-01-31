@@ -14,7 +14,7 @@ function Navbar() {
       <Link href="/">
         <Logo />
       </Link>
-      <div className="space-x-4 sm:space-x-6 items-center lg:space-x-0 flex lg:flex-col lg:space-y-8 lg:mt-[56px]">
+      <div className="space-x-4 sm:space-x-6 md:space-x-9 items-center lg:space-x-0 flex lg:flex-col lg:space-y-8 lg:mt-[56px]">
         <Link href="/">
           <HomeIcon />
         </Link>

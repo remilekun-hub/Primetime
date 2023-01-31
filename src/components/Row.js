@@ -103,7 +103,7 @@ function Row({ title, route, grid, tv, movie }) {
               <div className="w-full h-[110px] sm:h-[130px] md:h-[160px] lg:h-[170px]  relative">
                 <Image
                   src={`https://image.tmdb.org/t/p/w500/${d.backdrop_path}`}
-                  blurDataURL={`https://image.tmdb.org/t/p/w300/${d.backdrop_path}`}
+                  blurDataURL={`https://image.tmdb.org/t/p/w500/${d.backdrop_path}`}
                   className="object-cover object-center rounded-[6px] md:rounded-md"
                   placeholder="blur"
                   layout="fill"

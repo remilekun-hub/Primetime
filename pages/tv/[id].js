@@ -16,7 +16,10 @@ function Tv({ data }) {
 
 export default Tv;
 
-export const getServerSideProps = async ({ params: { id } }) => {
+export const getServerSideProps = async (ctx) => {
+  const {
+    params: { id },
+  } = ctx;
   const session = await getSession(ctx);
   if (!session) {
     return {
