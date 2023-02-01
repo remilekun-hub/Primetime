@@ -7,7 +7,7 @@ function auth({ providers }) {
   return (
     <div className=" ">
       <Head>
-        <title>Sign In - Primetime</title>
+        <title>Sign In | Primetime</title>
         <link rel="icon" href="/logo.png" />
       </Head>
       <p className="text-[23px] text-white mt-[15px]">You are not signed in</p>

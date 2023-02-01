@@ -43,7 +43,7 @@ function bookmarks() {
   return (
     <div className="text-white pb-10">
       <Head>
-        <title> Primetime - Bookmarks</title>
+        <title> Bookmarks | Primetime </title>
         <link rel="icon" href="/logo.png" />
       </Head>
       <form className="py-3" onSubmit={(e) => e.preventDefault()}>
@@ -62,7 +62,7 @@ function bookmarks() {
       </form>
       <div className="flex justify-end">
         <button
-          className="py-3 px-4 bg-[#5A6A90]"
+          className=" bg-[#5A6A90] px-2 py-2 rounded-[8px] text-[14px]"
           onClick={() => dispatch(removeAll())}
         >
           Remove all

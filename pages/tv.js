@@ -7,7 +7,7 @@ function tv() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 ms:grid-cols-3 lg:grid-cols-4">
       <Head>
-        <title> Primetime - Tv</title>
+        <title> Tv | Primetime </title>
         <link rel="icon" href="/logo.png" />
       </Head>
       <Genre name="action & Adventure" href={"tv/genre/10759?name=Action"} />

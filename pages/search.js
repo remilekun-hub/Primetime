@@ -58,9 +58,9 @@ function search({ movies, q }) {
         <link rel="icon" href="/logo.png" />
       </Head>
       {movies?.results && (
-        <p className="text-[16px] md:text-[25px] font-medium">{`Found ${movies?.total_results} results for "${q}"`}</p>
+        <p className="text-[16px] md:text-[25px] font-medium mb-6">{`Found ${movies?.total_results} results for "${q}"`}</p>
       )}
-      <div className="mt-3 text-white relative  text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="mt-3 relative  text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {movies?.results.map((d) => (
           <div
             key={d.id}

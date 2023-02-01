@@ -7,7 +7,7 @@ function movies() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 ms:grid-cols-3 lg:grid-cols-4">
       <Head>
-        <title>PrimeTime - Movie</title>
+        <title>Movies | Primetime </title>
         <link rel="icon" href="/logo.png" />
       </Head>
       <Genre name="action" href={"movie/genre/28?name=Action"} />

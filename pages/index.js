@@ -11,8 +11,8 @@ export default function Home() {
         <link rel="icon" href="/logo.png" />
       </Head>
       <Row title="Trending Movies" route="/api/movie/trending" />
-      <Row title="Crime Movies" route="/api/movie/crime" grid />
-      <Row title="Mystery Movies" route="/api/movie/mystery" grid />
+      <Row title="Crime Movies" route="/api/movie/crime" grid movie />
+      <Row title="Mystery Movies" route="/api/movie/mystery" grid movie />
       <Row title="Trending Tv" route="/api/tv/trending" />
       <Row title="Comedy Tv" route="/api/tv/comedy" grid tv />
       <Row title="Sci-Fi Tv" route="/api/tv/scifi" grid tv />

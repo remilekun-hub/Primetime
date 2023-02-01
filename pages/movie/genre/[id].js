@@ -8,7 +8,7 @@ function Genre({ id, name }) {
   return (
     <div className="text-white">
       <Head>
-        <title>{`PrimeTime - ${name}`}</title>
+        <title>{`${name} | PrimeTime`}</title>
         <link rel="icon" href="/logo.png" />
       </Head>
       <p className="mb-5 text-white text-[18px] sm:text-[20px] md:text-[26px] lg:text-[35px] capitalize">
@@ -37,10 +37,11 @@ function Genre({ id, name }) {
 
 export default Genre;
 
-export const getServerSideProps = async ({
-  params: { id },
-  query: { name },
-}) => {
+export const getServerSideProps = async (ctx) => {
+  const {
+    params: { id },
+    query: { name },
+  } = ctx;
   const session = await getSession(ctx);
   if (!session) {
     return {

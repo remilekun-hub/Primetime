@@ -10,6 +10,7 @@ import NotBookmarkedIcon from "./icons/notBookmarkedIcon";
 function Row({ title, route, grid, tv, movie }) {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSwr(route, fetcher);
+  console.log({ data });
   const router = useRouter();
   const dispatch = useDispatch();
   const bookmarks = useSelector((state) => state.bookmarks);
@@ -70,14 +71,14 @@ function Row({ title, route, grid, tv, movie }) {
         {title}
       </p>
       {grid ? (
-        <div className="cursor-pointer text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className=" text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {data?.results?.slice(0, 10).map((d) => (
             <div
               key={d.id}
               onClick={() => {
                 router.push(`${tv ? `/tv/${d.id}` : `/movie/${d.id}`}`);
               }}
-              className="relative"
+              className="relative cursor-pointer"
             >
               {checkid(d.id, bookmarks) ? (
                 <div
@@ -117,12 +118,25 @@ function Row({ title, route, grid, tv, movie }) {
                     {d.release_date?.slice(0, 4) ||
                       d.first_air_date?.slice(0, 4)}
                   </span>
-                  <span className="w-[3px] h-[3px] rounded-full bg-white/80 ml-[7px]" />
-                  <span className="ml-[9px]">
-                    <TvIcon />
-                  </span>{" "}
-                  <span className="ml-[7px] text-white/80">Tv</span>
+                  {movie ? (
+                    <div className="flex items-center">
+                      <span className="w-[3px] h-[3px] rounded-full bg-white/80 ml-[7px]" />
+                      <span className="ml-[9px]">
+                        <MovieIcon />
+                      </span>{" "}
+                      <span className="ml-[7px] text-white/80">Movie</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center">
+                      <span className="w-[3px] h-[3px] rounded-full bg-white/80 ml-[7px]" />
+                      <span className="ml-[9px]">
+                        <TvIcon />
+                      </span>{" "}
+                      <span className="ml-[7px] text-white/80">Tv</span>
+                    </div>
+                  )}
                 </div>
+
                 <h4 className="max-w-full font-semibold truncate text-[12px] sm:text-[15px] md:text-[16px] lg:text-[18px]">
                   {d.title || d.name}
                 </h4>
