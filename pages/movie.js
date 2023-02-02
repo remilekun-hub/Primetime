@@ -5,7 +5,7 @@ import { getSession } from "next-auth/react";
 
 function movies() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 ms:grid-cols-3 lg:grid-cols-4">
+    <div className="grid  gap-y-6 gap-x-5 grid-cols-1 sm:grid-cols-2 ms:grid-cols-3 lg:grid-cols-4 py-7">
       <Head>
         <title>Movies | Primetime </title>
         <link rel="icon" href="/logo.png" />
