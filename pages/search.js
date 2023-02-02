@@ -130,77 +130,26 @@ function search({ movies, q }) {
       </div>
 
       {movies && (
-        <div className="text-center flex justify-center items-center mt-[20px] pb-[20px] ">
-          {movies?.page > 1 ? (
-            <Link
-              href={`/search?q=${q}&page=${movies?.page - 1}`}
-              className="flex items-center font-semibold text-[16px] border boder-white px-[5px] py-[3px] rounded-[5px]"
-            >
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-4 h-4 mt-[4px]"
-                >
-                  <path
-                    strokelinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 19.5L8.25 12l7.5-7.5"
-                  />
-                </svg>
-              </span>
-              <span>Previous</span>
-            </Link>
-          ) : (
-            <div className="flex items-center font-semibold text-[16px] cursor-pointer border boder-white px-[5px] py-[3px] rounded-[5px]">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-4 h-4 mt-[4px]"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 19.5L8.25 12l7.5-7.5"
-                  />
-                </svg>
-              </span>
-              <span>Previous</span>
-            </div>
-          )}
-          <div className="px-[10px]">
-            <p className="text-[15px] sm:text-[17px] md:text-[20px] text-center">
-              {`${movies?.page} of ${movies?.total_pages}`}
-            </p>
-          </div>
+        <div className="py-8 flex items-center justify-center gap-x-3">
           <Link
-            href={`/search?q=${q}&page=${movies?.page + 1}`}
-            className="flex items-center font-semibold text-[16px] border boder-white px-[5px] py-[3px] rounded-[5px]"
+            href={`/search?q${q}&page=${
+              movies.page < movies.total_pages ? movies.page - 1 : movies.page
+            }`}
+            className={`text-[19px] font-semibold tracking-[2px] border rounded-md px-3 py-2 ${
+              movies.page <= 1 ? "hidden" : ""
+            }`}
           >
-            <span>Next</span>
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-4 h-4 mt-1"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </span>
+            Prev
+          </Link>
+          <Link
+            href={`/search?q=${q}&page=${
+              movies.page < movies.total_pages ? movies.page + 1 : movies.page
+            }`}
+            className={`text-[19px] font-semibold tracking-[2px] border rounded-md px-3 py-2 ${
+              movies.page === movies.total_pages ? "hidden" : ""
+            }`}
+          >
+            Next
           </Link>
         </div>
       )}
@@ -214,6 +163,7 @@ export const getServerSideProps = async (ctx) => {
   const {
     query: { q, page },
   } = ctx;
+  const Page = page || 1;
   const session = await getSession(ctx);
   if (!session) {
     return {
@@ -227,7 +177,7 @@ export const getServerSideProps = async (ctx) => {
   if (!q) return { props: {} };
 
   const data = await fetch(
-    `${baseURl}/search/multi?api_key=${TMDBKEY}&language=en-US&query=${q}&page=${page}`
+    `${baseURl}/search/multi?api_key=${TMDBKEY}&language=en-US&query=${q}&page=${Page}`
   );
   const movies = await data.json();
   return {
