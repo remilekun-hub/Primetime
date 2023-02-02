@@ -46,7 +46,7 @@ function PageTv({ index, id }) {
 
   return (
     <div className="text-white">
-      <div className="relative cursor-pointer text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="relative text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {data?.results.map((d) => (
           <div
             key={d.id}
@@ -104,11 +104,6 @@ function PageTv({ index, id }) {
           </div>
         ))}
       </div>
-      {data && (
-        <p className="text-[14px] sm:text-[16px] md:text-[20px] lg:text-[25px] text-center">
-          {`Page ${data?.page} of ${data?.total_pages}`}
-        </p>
-      )}
     </div>
   );
 }

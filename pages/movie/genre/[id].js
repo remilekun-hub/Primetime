@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,9 +13,8 @@ import Image from "next/legacy/image";
 import { TMDBKEY, baseURl } from "../../../src/components/tmdb";
 import Link from "next/link";
 
-function Genre({ name, movies }) {
+function Genre({ name, movies, id }) {
   console.log({ movies });
-  console.log(typeof movies.total_pages);
   const router = useRouter();
   const dispatch = useDispatch();
   const bookmarks = useSelector((state) => state.bookmarks);
@@ -50,7 +49,7 @@ function Genre({ name, movies }) {
       </p>
 
       <div className="relative text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {movies?.results.map((d) => (
+        {movies.results.map((d) => (
           <div
             key={d.id}
             onClick={() => {
@@ -111,7 +110,7 @@ function Genre({ name, movies }) {
       {movies && (
         <div className="py-8 flex items-center justify-center gap-x-3">
           <Link
-            href={`/movie/genre/10752?name=War&page=${
+            href={`/movie/genre/${id}?name=${name}&page=${
               movies.page < movies.total_pages ? movies.page - 1 : movies.page
             }`}
             className={`text-[19px] font-semibold tracking-[2px] border rounded-md px-3 py-2 ${
@@ -121,7 +120,7 @@ function Genre({ name, movies }) {
             Prev
           </Link>
           <Link
-            href={`/movie/genre/10752?name=War&page=${
+            href={`/movie/genre/${id}?name=${name}&page=${
               movies.page < movies.total_pages ? movies.page + 1 : movies.page
             }`}
             className={`text-[19px] font-semibold tracking-[2px] border rounded-md px-3 py-2 ${
@@ -160,6 +159,7 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
+      id,
       name,
       movies,
     },
