@@ -3,7 +3,6 @@ import Head from "next/head";
 import React from "react";
 import { baseURl, TMDBKEY } from "../../src/components/tmdb";
 function Movie({ data }) {
-  console.log({ data });
   const star = Array(5);
   const voteaverage = data.vote_average / 2;
   return (

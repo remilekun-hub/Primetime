@@ -11,7 +11,6 @@ import { addBookmark } from "../src/redux/slices/bookMarkSlice";
 import { useRouter } from "next/router";
 
 function search({ movies, q }) {
-  console.log({ movies });
   const router = useRouter();
   const bookmarks = useSelector((state) => state.bookmarks);
   const dispatch = useDispatch();

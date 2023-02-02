@@ -4,7 +4,6 @@ import React from "react";
 import { TMDBKEY, baseURl } from "../../src/components/tmdb";
 
 function Tv({ data }) {
-  console.log({ data });
   const star = new Array(5);
   const voteaverage = data.vote_average / 2;
   return (

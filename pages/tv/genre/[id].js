@@ -14,7 +14,6 @@ import NotBookmarkedIcon from "../../../src/components/icons/notBookmarkedIcon";
 import Link from "next/link";
 
 function Genre({ id, name, tv }) {
-  console.log({ tv });
   const router = useRouter();
   const checkid = (movieid, bookmarks) => {
     const bookmark = bookmarks.find((m) => m.id === movieid);

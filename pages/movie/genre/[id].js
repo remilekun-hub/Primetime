@@ -14,7 +14,6 @@ import { TMDBKEY, baseURl } from "../../../src/components/tmdb";
 import Link from "next/link";
 
 function Genre({ name, movies, id }) {
-  console.log({ movies });
   const router = useRouter();
   const dispatch = useDispatch();
   const bookmarks = useSelector((state) => state.bookmarks);

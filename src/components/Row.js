@@ -10,7 +10,6 @@ import NotBookmarkedIcon from "./icons/notBookmarkedIcon";
 function Row({ title, route, grid, tv, movie }) {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSwr(route, fetcher);
-  console.log({ data });
   const router = useRouter();
   const dispatch = useDispatch();
   const bookmarks = useSelector((state) => state.bookmarks);
