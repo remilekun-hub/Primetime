@@ -13,7 +13,7 @@ function MovieIcon() {
     >
       <svg
         className={
-          router.pathname == "/movie" ? "text-white" : "text-[#5A6A90]"
+          router.pathname == "/movies" ? "text-white" : "text-[#5A6A90]"
         }
         fill="currentColor"
         width="1.1rem"
