@@ -6,6 +6,8 @@ import TvIcon from "./icons/tvicon";
 import HomeIcon from "./icons/HomeIcon";
 import Logo from "./icons/logo";
 import { signOut, useSession } from "next-auth/react";
+import Tooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap.css";
 
 function Navbar() {
   const { data: session } = useSession();
@@ -18,7 +20,8 @@ function Navbar() {
         <Link href="/">
           <HomeIcon />
         </Link>
-        <Link href="/movie">
+
+        <Link href="/movies">
           <MovieIcon />
         </Link>
 
@@ -32,30 +35,46 @@ function Navbar() {
       </div>
       <div className="lg:mt-auto">
         {session ? (
-          <div onClick={() => signOut()} className="cursor-pointer">
-            <img
-              src={session?.user?.image}
-              alt={session?.user?.name}
-              className="w-8 h-8 lg:w-9 lg:h-9 rounded-full"
-            />
-          </div>
-        ) : (
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="#5A6A90"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke=""
-              className="w-8 h-8"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+          <Tooltip
+            placement="right"
+            trigger={["hover", "click"]}
+            overlay={<span className="text-md tracking-[1px]">Sign Out</span>}
+          >
+            <div onClick={() => signOut()} className="cursor-pointer">
+              <img
+                src={session?.user?.image}
+                alt={session?.user?.name}
+                className="w-8 h-8 lg:w-9 lg:h-9 rounded-full"
               />
-            </svg>
-          </div>
+            </div>
+          </Tooltip>
+        ) : (
+          <Tooltip
+            placement="right"
+            trigger={["hover", "click"]}
+            overlay={
+              <span className="text-md font-semibold tracking-[1px]">
+                Sign In
+              </span>
+            }
+          >
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#5A6A90"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke=""
+                className="w-8 h-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                />
+              </svg>
+            </div>
+          </Tooltip>
         )}
       </div>
     </div>

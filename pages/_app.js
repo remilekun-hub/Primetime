@@ -6,6 +6,7 @@ import "@fontsource/outfit/300.css";
 import { store, persistor } from "../src/redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import Router from "next/router";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
