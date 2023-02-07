@@ -12,9 +12,9 @@ function MovieIcon() {
       overlay={<span className="text-md  tracking-[1px]">Movies</span>}
     >
       <svg
-        className={
+        className={` hover:text-[#FC4747] transition-bg duration-300 ${
           router.pathname == "/movies" ? "text-white" : "text-[#5A6A90]"
-        }
+        }`}
         fill="currentColor"
         width="1.1rem"
         height="1.1rem"

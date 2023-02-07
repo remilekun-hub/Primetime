@@ -11,7 +11,9 @@ function HomeIcon() {
       overlay={<span className="text-md  tracking-[1px]">Home</span>}
     >
       <svg
-        className={router.pathname == "/" ? "text-white" : "text-[#5A6A90]"}
+        className={` hover:text-[#FC4747] transition-bg duration-300 ${
+          router.pathname == "/" ? "text-white" : "text-[#5A6A90]"
+        }`}
         fill="currentColor"
         width="1.1rem"
         height="1.1rem"

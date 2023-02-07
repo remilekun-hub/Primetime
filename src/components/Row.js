@@ -70,7 +70,7 @@ function Row({ title, route, grid, tv, movie }) {
         {title}
       </p>
       {grid ? (
-        <div className=" text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className=" text-white grid gap-x-4 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           {data?.results?.slice(0, 10).map((d) => (
             <div
               key={d.id}
@@ -100,7 +100,7 @@ function Row({ title, route, grid, tv, movie }) {
                   <NotBookmarkedIcon className="text-[50px] w-6 h-5 stroke-2" />
                 </div>
               )}
-              <div className="w-full h-[110px] sm:h-[130px] md:h-[160px] lg:h-[170px]  relative">
+              <div className="w-full h-[115px] sm:h-[130px] md:h-[160px] lg:h-[170px]  relative">
                 <Image
                   src={`https://image.tmdb.org/t/p/w500/${d.backdrop_path}`}
                   blurDataURL={`https://image.tmdb.org/t/p/w500/${d.backdrop_path}`}
@@ -148,7 +148,7 @@ function Row({ title, route, grid, tv, movie }) {
           {data?.results?.map((movie) => (
             <div
               key={movie.id}
-              className="cursor-pointer z-10 w-[200px] h-[150px] sm:w-[250px] sm:h-[175px] md:w-[300px] md:h-[210px] lg:w-[450px] lg:h-[240px] relative inline-block rounded-md md:rounded-lg "
+              className="cursor-pointer z-10 w-[230px] h-[150px] sm:w-[280px] sm:h-[175px] md:w-[330px] md:h-[210px] lg:w-[450px] lg:h-[240px] relative inline-block rounded-md md:rounded-lg "
               onClick={() => {
                 router.push(
                   `${
