@@ -11,6 +11,8 @@ import Nprogress from "nprogress";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  NProgress.configure({ showSpinner: false });
+
   Router.events.on("routeChangeStart", () => {
     Nprogress.start();
   });

@@ -7,7 +7,7 @@ function MovieIcon() {
 
   return (
     <Tooltip
-      placement="right"
+      placement="bottom"
       trigger={["hover"]}
       overlay={<span className="text-md  tracking-[1px]">Movies</span>}
     >
