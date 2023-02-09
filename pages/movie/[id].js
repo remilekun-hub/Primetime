@@ -36,7 +36,7 @@ function Movie({ data }) {
             <div className="flex">
               {star.fill().map((_, i) =>
                 voteaverage > i ? (
-                  <span>
+                  <span key={i>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 576 512"
@@ -46,7 +46,7 @@ function Movie({ data }) {
                     </svg>
                   </span>
                 ) : (
-                  <span>
+                  <span key={i}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 576 512"

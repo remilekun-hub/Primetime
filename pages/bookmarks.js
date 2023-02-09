@@ -9,7 +9,7 @@ import Image from "next/legacy/image";
 import NotBookmarkedIcon from "../src/components/icons/notBookmarkedIcon";
 import BookmarkedIcon from "../src/components/icons/bookmarkedIcon";
 
-function bookmarks() {
+function Bookmarks() {
   const bookmarks = useSelector((state) => state.bookmarks);
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
@@ -202,7 +202,7 @@ function bookmarks() {
   );
 }
 
-export default bookmarks;
+export default Bookmarks;
 export const getServerSideProps = async (ctx) => {
   const session = await getSession(ctx);
   if (!session) {

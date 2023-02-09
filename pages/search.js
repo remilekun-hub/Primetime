@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addBookmark } from "../src/redux/slices/bookMarkSlice";
 import { useRouter } from "next/router";
 
-function search({ movies, q }) {
+function Search({ movies, q }) {
   const router = useRouter();
   const bookmarks = useSelector((state) => state.bookmarks);
   const dispatch = useDispatch();
@@ -156,7 +156,7 @@ function search({ movies, q }) {
   );
 }
 
-export default search;
+export default Search;
 
 export const getServerSideProps = async (ctx) => {
   const {
