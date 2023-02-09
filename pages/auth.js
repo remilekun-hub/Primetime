@@ -15,6 +15,7 @@ function auth({ providers }) {
         <div>
           {Object.values(providers).map((auth) => (
             <button
+              key={auth.name}
               onClick={() => signIn(auth.id, { callbackUrl: "/" })}
               className="border p-3 text-[18px] outline-none transition font-semibold hover:bg-[#5A6A90] hover:border-[#5A6A90]"
             >

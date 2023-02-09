@@ -161,6 +161,7 @@ function Row({ title, route, grid, tv, movie }) {
             >
               <Image
                 src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+                alt={`${d.title || d.name}_backdrop`}
                 layout="fill"
                 blurDataURL={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
                 className="object-cover object-center rounded-lg filter brightness-55"
