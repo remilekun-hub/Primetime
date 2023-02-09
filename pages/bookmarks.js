@@ -79,7 +79,7 @@ function bookmarks() {
             <h3 className="text-[16px] sm:text-[20px] md:text-[35px] lg:text-[30px] mb-4">
               Bookmarked Movies
             </h3>
-            <div className="relative cursor-pointer text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className=" text-white grid gap-x-4 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
               {movieSearch().map((d) => (
                 <div key={d.id} className="relative">
                   {checkid(d.id, bookmarks) ? (
@@ -142,7 +142,7 @@ function bookmarks() {
                 Bookmarked Movies
               </h3>
             )}
-            <div className="relative cursor-pointer text-white grid gap-x-3 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className=" text-white grid gap-x-4 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
               {bookmarks.map((d) => (
                 <div key={d.id} className="relative">
                   {checkid(d.id, bookmarks) ? (

@@ -49,7 +49,7 @@ function Genre({ id, name, tv }) {
         {name}
       </p>
 
-      <div className="relative text-white grid gap-x-4 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className=" text-white grid gap-x-4 gap-y-6 sm:gap-x-4 lg:gap-x-8 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         {tv.results.map((d) => (
           <div
             key={d.id}
