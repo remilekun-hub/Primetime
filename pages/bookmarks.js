@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSession } from "next-auth/react";
-import SearchIcon from "../src/components/icons/SearchIcon";
+import SearchIcon from "../src/components/icons/searchicon";
 import { useState } from "react";
 import { removeAll, removeBookMark } from "../src/redux/slices/bookMarkSlice";
 import Head from "next/head";

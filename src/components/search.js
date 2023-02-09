@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import SearchIcon from "./icons/SearchIcon";
+import SearchIcon from "./icons/searchicon";
 
 function Search() {
   const [query, setquery] = useState("");
