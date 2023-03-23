@@ -131,7 +131,7 @@ function Search({ movies, q }) {
       {movies && (
         <div className="py-8 flex items-center justify-center gap-x-3">
           <Link
-            href={`/search?q${q}&page=${
+            href={`/search?q=${q}&page=${
               movies.page < movies.total_pages ? movies.page - 1 : movies.page
             }`}
             className={`text-[19px] font-semibold tracking-[2px] border rounded-md px-3 py-2 ${
